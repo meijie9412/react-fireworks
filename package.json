@@ -1,6 +1,6 @@
 {
   "name": "@meijie/react-fireworks",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Canvas fireworks component for React, with configurable particles, colors, shapes, multi-burst, looping and realistic launch physics.",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -36,7 +36,7 @@
     "dev": "vite --config demo/vite.config.js"
   },
   "dependencies": {
-    "@meijie/vue-fireworks": "^0.4.1"
+    "@meijie/fireworks-core": "^0.1.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
