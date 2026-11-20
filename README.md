@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/@meijie/react-fireworks.svg)](https://www.npmjs.com/package/@meijie/react-fireworks)
 [![license](https://img.shields.io/npm/l/@meijie/react-fireworks.svg)](./LICENSE)
 
-A canvas-based fireworks component for **React 16.8+** (hooks). Configurable particles, colors, shapes, burst position, trails, glow, multi-burst sequences, looping, and realistic launch physics.
+A canvas-based fireworks component for **React 16.8+** (hooks). Configurable particles, colors, shapes, burst position, trails, glow, multi-burst sequences, looping, realistic launch physics, presets, secondary explosions, shockwaves, color gradients, heart/text particles, waterfall mode and Web Audio sound effects.
 
 The particle engine is shared with [`@meijie/vue-fireworks`](https://www.npmjs.com/package/@meijie/vue-fireworks) — this package is a thin React wrapper, so bug fixes and engine improvements apply to both.
 
@@ -73,8 +73,17 @@ All props are optional.
 | `show` | boolean | `false` | Controlled trigger. Set to `true` to launch. Reset via `onShowChange(false)`. |
 | `count` | number | `60` | Number of particles per burst |
 | `colors` | string[] | `['#FF8201','#2DA6E0','#FF262B']` | Particle color pool (one picked at random per particle) |
-| `shape` | `'rect' \| 'circle' \| 'star'` | `'rect'` | Particle shape |
-| `origin` | `'center' \| {x,y}` | `'center'` | Burst origin (CSS pixels inside canvas) |
+| `shape` | `'rect' \| 'circle' \| 'star' \| 'heart' \| 'text'` | `'rect'` | Particle shape |
+| `origin` | `'center' \| 'top' \| {x,y}` | `'center'` | Burst origin (`'top'` = waterfall top edge) |
+| `preset` | `'show' \| 'salute' \| 'waterfall' \| null` | `null` | One-click effect preset (see below) |
+| `secondary` | number | `0` | Child particles per secondary explosion; `0` disables |
+| `secondaryAt` | number | `0.5` | Split timing as a fraction of particle lifetime |
+| `colorMode` | `'random' \| 'gradient'` | `'random'` | Random color per particle, or transition through the pool |
+| `sound` | boolean | `false` | Web Audio synthesized SFX (no audio files) |
+| `volume` | number | `0.35` | Sound volume 0–1 |
+| `text` | string | `'★'` | Glyph when `shape="text"` |
+| `shockwave` | number | `0` | Shockwave ring max radius in px; `0` disables |
+| `fall` | boolean | `false` | Waterfall mode: particles rain from the top |
 | `followMouse` | boolean | `false` | Burst at mouse position; takes precedence over `origin` |
 | `bursts` | number | `1` | Number of consecutive bursts per trigger (`1` = single, max `50`) |
 | `burstInterval` | number | `280` | Interval between adjacent bursts, in ms |
@@ -112,18 +121,43 @@ Any other props (e.g. `data-*`, `aria-*`) are forwarded to the wrapper `<div>`.
 
 Calling `ref.fire({ origin })` with an explicit origin forces a **single** burst (multi-burst and looping are ignored), so "click here, burst here" stays deterministic.
 
+## Presets & advanced effects
+
+```jsx
+// One-click effects — explicit props override preset values
+<ReactFireworks preset="show" />       // looping firework show with launches + gradient colors
+<ReactFireworks preset="salute" />     // rapid salute with secondary explosions + shockwaves
+<ReactFireworks preset="waterfall" />  // continuous colored rain from the top
+
+// Combine effects manually
+<ReactFireworks
+  shape="heart"
+  secondary={16}
+  shockwave={120}
+  colorMode="gradient"
+  colors={['#f00', '#0f0', '#00f']}
+  sound
+  volume={0.4}
+/>
+<ReactFireworks shape="text" text="🎆" />
+```
+
+Sounds are synthesized at runtime with the Web Audio API (no audio assets). Browsers gate audio behind a user gesture; if `AudioContext` is unavailable the animation still runs silently. Secondary particles never cascade, and a 6000-particle cap guards against pathological configs.
+
 ## Using the engine directly
 
-The engine has no React or Vue dependency and can be used standalone:
+The engine is published as a standalone, zero-dependency package shared by the Vue and React bindings:
 
 ```js
-import { FireworksEngine } from '@meijie/react-fireworks/engine'
+import { FireworksEngine } from '@meijie/fireworks-core'
 
 const engine = new FireworksEngine(canvasEl, { count: 80, glow: true })
 engine.onEnd = () => console.log('done')
 engine.fire()
 // engine.setOptions({ shape: 'star' }); engine.stop(); engine.destroy()
 ```
+
+`@meijie/react-fireworks/engine` remains a backward-compatible re-export. The React package no longer depends on the Vue package — both depend on `@meijie/fireworks-core`.
 
 ## Development
 
