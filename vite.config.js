@@ -23,7 +23,7 @@ export default defineConfig({
         'react',
         'react-dom',
         'react/jsx-runtime',
-        '@meijie/vue-fireworks/engine'
+        '@meijie/fireworks-core'
       ],
       output: { exports: 'named' }
     }
