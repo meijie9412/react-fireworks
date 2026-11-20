@@ -6,14 +6,16 @@
 import {
   forwardRef, useEffect, useImperativeHandle, useRef
 } from 'react'
-import { FireworksEngine } from '@meijie/vue-fireworks/engine'
+import { FireworksEngine } from '@meijie/fireworks-core'
 
 /** 需要同步给引擎的配置键（不含 show 与回调） */
 const CONFIG_KEYS = [
   'count', 'colors', 'shape', 'gravity', 'friction', 'spread',
   'size', 'trail', 'glow', 'duration', 'origin', 'followMouse',
   'bursts', 'burstInterval', 'loop',
-  'launch', 'launchDuration', 'launchFrom', 'fps'
+  'launch', 'launchDuration', 'launchFrom', 'fps',
+  'preset', 'secondary', 'secondaryAt', 'colorMode', 'sound',
+  'volume', 'text', 'shockwave', 'fall'
 ]
 
 function collectOptions (props) {
