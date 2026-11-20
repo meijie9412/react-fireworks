@@ -1,0 +1,61 @@
+{
+  "name": "@meijie/react-fireworks",
+  "version": "0.1.0",
+  "description": "Canvas fireworks component for React, with configurable particles, colors, shapes, multi-burst, looping and realistic launch physics.",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./engine": {
+      "types": "./dist/engine.d.ts",
+      "import": "@meijie/vue-fireworks/engine",
+      "require": "@meijie/vue-fireworks/engine"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "keywords": [
+    "react",
+    "fireworks",
+    "canvas",
+    "animation",
+    "particle",
+    "烟花",
+    "礼花"
+  ],
+  "scripts": {
+    "build": "FORMAT=es vite build && FORMAT=cjs vite build && cp types/*.d.ts dist/",
+    "test": "vitest run",
+    "dev": "vite --config demo/vite.config.js"
+  },
+  "dependencies": {
+    "@meijie/vue-fireworks": "^0.4.1"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meijie9412/react-fireworks.git"
+  },
+  "homepage": "https://github.com/meijie9412/react-fireworks#readme",
+  "bugs": {
+    "url": "https://github.com/meijie9412/react-fireworks/issues"
+  },
+  "author": "meijie",
+  "license": "MIT",
+  "devDependencies": {
+    "@testing-library/react": "^16.1.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "vite": "^4.5.14",
+    "vitest": "^2.1.9"
+  }
+}
