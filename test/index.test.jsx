@@ -104,4 +104,22 @@ describe('ReactFireworks', () => {
     expect(wrap.getAttribute('aria-label')).toBe('fireworks')
     expect(wrap.getAttribute('count')).toBeNull()
   })
+
+  it('新增配置键（preset/secondary/sound 等）不透传到 DOM', () => {
+    const { container } = render(
+      <ReactFireworks preset="salute" secondary={8} sound shockwave={80} colorMode="gradient" text="♥" />
+    )
+    const wrap = container.querySelector('canvas').parentElement
+    expect(wrap.getAttribute('preset')).toBeNull()
+    expect(wrap.getAttribute('secondary')).toBeNull()
+    expect(wrap.getAttribute('sound')).toBeNull()
+    expect(wrap.getAttribute('shockwave')).toBeNull()
+  })
+
+  it('预设配置可透传到引擎并生成对应效果（preset=waterfall）', () => {
+    const ref = createRef()
+    render(<ReactFireworks ref={ref} count={20} />)
+    act(() => { ref.current.fire({ preset: 'waterfall' }) })
+    expect(() => act(() => ref.current.stop())).not.toThrow()
+  })
 })
