@@ -11,9 +11,12 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: format === 'es',
     lib: {
-      entry: resolve(__dirname, 'src/index.jsx'),
+      entry: {
+        index: resolve(__dirname, 'src/index.jsx'),
+        engine: resolve(__dirname, 'src/engine.js')
+      },
       formats: [format],
-      fileName: () => `index.${ext}`
+      fileName: (fmt, entryName) => `${entryName}.${ext}`
     },
     rollupOptions: {
       external: [
