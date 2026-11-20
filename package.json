@@ -1,6 +1,6 @@
 {
   "name": "@meijie/react-fireworks",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Canvas fireworks component for React, with configurable particles, colors, shapes, multi-burst, looping and realistic launch physics.",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -13,8 +13,8 @@
     },
     "./engine": {
       "types": "./dist/engine.d.ts",
-      "import": "@meijie/vue-fireworks/engine",
-      "require": "@meijie/vue-fireworks/engine"
+      "import": "./dist/engine.js",
+      "require": "./dist/engine.cjs"
     }
   },
   "files": [
