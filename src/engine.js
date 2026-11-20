@@ -1,3 +1,4 @@
-// Engine re-export — shares the exact same engine instance with the Vue package.
-// Runtime import goes through the package dependency, so both packages use one core.
-export { FireworksEngine, default } from '@meijie/vue-fireworks/engine'
+// Engine re-export — the single source of truth is @meijie/fireworks-core.
+// Runtime import goes through the package dependency, so all framework bindings
+// share the exact same engine implementation.
+export { FireworksEngine, PRESETS, default } from '@meijie/fireworks-core'
